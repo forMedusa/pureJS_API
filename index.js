@@ -1,15 +1,19 @@
+// I HAVE CREATED IT BUT IT WONT WORK UNTIL WE USE npm install domDOMParse to install DOMParse
 // url we want to fetch the data from
 let client = 'https://time.com/';
 
 // url1= "http://127.0.0.1:5500/index.html"
+const port = 3000;
+const http = require('http');
+const https = require('https');
 
-// GET request to site using the fetch API
-fetch('/readNews',client,(res => {
-    console.log(res)
-}))
-  .then(response => response.text())
+const server = http.createServer((req,res) => {
+  res.writeHead(200, "Running");
+  res.end("Data will be fetched");
+  //console.log(res)
+  fetch(client).then(response => response.text())
   .then(html => {
-    // DOM parser to parse the DOM data
+      // DOM parser to parse the DOM data
     var parser = new DOMParser();
     
     // Parse the HTML content of the web page
@@ -36,11 +40,9 @@ fetch('/readNews',client,(res => {
     
     // pushing the object in array
     dataList.push(dataObject);
-    });
-
-    // consoled the data in JSON format
-    console.log(JSON.stringify(dataList, null, 2));
   })
-  .catch(error => {
-    console.error('Error fetching the page', error);
-  })
+})
+})
+server.listen(port, () => {
+  console.log("Server Running")
+})
